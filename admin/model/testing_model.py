@@ -23,7 +23,8 @@ for crypto in trained_list:
         try:
             classi_analysis = da.classification_analysis(df_data, str(crypto))
             classi_analysis.to_csv('csv/'+str(crypto)+'_classification_analysis.csv')
-        except Exception:
+        except Exception as e:
+            print(e)
             pass
 
         if(crypto == 'BTC'):

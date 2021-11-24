@@ -1,5 +1,6 @@
 # ------------------------------------------------------------------------------------------- #
-#    CRYPTIC: AN IMPROVED CNN-LSTM CRYPTOCURRENCY PRICE FORECASTING USING INTERNET TRENDS
+#                 CRYPTIC: A CNN-LSTM AND FUZZY LOGIC BASED 
+#            CRYPTOCURRENCY FORECASTING AND DECISION SUPPORT SYSTEM
 # 
 # Authors:
 # Arconado, Kristine N.             Dalay, Jeremy Tristen A.

@@ -1,5 +1,6 @@
 # ------------------------------------------------------------------------------------------- #
-#    CRYPTIC: AN IMPROVED CNN-LSTM CRYPTOCURRENCY PRICE FORECASTING USING INTERNET TRENDS
+#                 CRYPTIC: A CNN-LSTM AND FUZZY LOGIC BASED 
+#            CRYPTOCURRENCY FORECASTING AND DECISION SUPPORT SYSTEM
 # 
 # Authors:
 # Arconado, Kristine N.             Dalay, Jeremy Tristen A.
@@ -16,111 +17,57 @@ from modules import *
 from dbconnect import *
 os.environ["QT_FONT_DPI"] = "96"
 
-# Login Window
-firebaseConfig = {
-    "apiKey": "AIzaSyC0k1EEv-FNciFulCDa5C5hsOhX7nsfXQc",
-    "authDomain": "cryptic-database.firebaseapp.com",
-    "databaseURL": "https://cryptic-database-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "projectId": "cryptic-database",
-    "storageBucket": "cryptic-database.appspot.com",
-    "messagingSenderId": "975253440847",
-    "appId": "1:975253440847:web:58ec1b6fe880fea93e5d3a",
-    "measurementId": "G-H0JJDEYFW9"
-}
-
-firebase = pyrebase.initialize_app(firebaseConfig)
-auth = firebase.auth()
-
-class Login(QMainWindow):
+# SPLASH SCREEN
+class SplashScreen(QMainWindow):
     def __init__(self):
-        super(Login, self).__init__()
-        self.ui = Login_MainWindow()
+        QMainWindow.__init__(self)
+        self.ui = Ui_SplashScreen()
         self.ui.setupUi(self)
 
-        # UI FUNCTIONS DEFINITIONS
-        UIFunctions.ui_logindefinitions(self)
-        
-        self.ui.content.setCurrentWidget(self.ui.loginPage)
-        self.ui.pass_login.setEchoMode(QLineEdit.Password)
-        self.ui.pass_signup.setEchoMode(QLineEdit.Password)
-        self.ui.confirmPass.setEchoMode(QLineEdit.Password)
-        
-        self.ui.btn_login.clicked.connect(self.loginfunction)
-        self.ui.btn_toSignup.clicked.connect(lambda : self.ui.content.setCurrentWidget(self.ui.signupPage))
-        
-        self.ui.btn_signup.clicked.connect(self.signupfunction)
-        self.ui.btn_toLogin.clicked.connect(lambda : self.ui.content.setCurrentWidget(self.ui.loginPage))
+        ## REMOVE TITLE BAR
+        self.setWindowFlag(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground, Qt.WA_DeleteOnClose)
 
+        ## DROP SHADOW EFFECT
+        self.shadow = QGraphicsDropShadowEffect(self)
+        self.shadow.setBlurRadius(20)
+        self.shadow.setXOffset(0)
+        self.shadow.setYOffset(0)
+        self.shadow.setColor(QColor(0, 0, 0, 60))
+        self.ui.frame.setGraphicsEffect(self.shadow)
 
-    def loginfunction(self):
-        self.ui.username_signup.clear()
-        self.ui.pass_signup.clear()
-        self.ui.confirmPass.clear()
+        self.access_db()
+    
+    def access_db(self):
+        today = datetime.now()
+        # today = pd.to_datetime(today)
+        self.db_thread = QThread()
+        self.db_worker = AccessDatabase(today)
+        self.db_worker.moveToThread(self.db_thread)
+        self.db_worker.import_data_complete.connect(self.catch_db_data)
+        self.db_worker.update_progress.connect(self.evt_update_progress)
+        self.db_thread.started.connect(self.db_worker.access_now)
+        self.db_thread.start()
 
-        email = self.ui.username_login.text()
-        password = self.ui.pass_login.text()
-
-        try:
-            auth.sign_in_with_email_and_password(email, password)
+    def evt_update_progress(self, ctr):
+        self.ui.progressBar.setValue(ctr)
+        if ctr == 35:
+            self.ui.label.setText("<strong>LOADING</strong> DATABASE")
+        if ctr == 75:
+            self.ui.label.setText("<strong>LOADING</strong> USER INTERFACE")
+        if ctr == 100:
+            self.db_thread.quit()
+            self.db_thread.wait()
             self.window = MainWindow()
-            # self.windows.append(window)
             self.window.show()
             self.close()
-            
-        except Exception as e:
-            error = json.loads(e.args[1])['error']['message']
-            print(error)
-            self.ui.username_login.clear()
-            self.ui.pass_login.clear()
 
-            AppFunctions.popup(self, 1)
-            self.Popup.ui.cancel.clicked.connect(lambda: self.Popup.close())
-            self.Popup.ui.error_message.setText(str(error)+". Try Again?")
-            self.Popup.ui.cancel.setText('OK')
-
-    
-    def signupfunction(self):
-        self.ui.username_login.clear()
-        self.ui.pass_login.clear()
-
-        email = self.ui.username_signup.text()
-        if self.ui.pass_signup.text() == self.ui.confirmPass.text():
-            password = self.ui.pass_signup.text()
-
-            try:
-                auth.create_user_with_email_and_password(email, password)
-                self.ui.content.setCurrentWidget(self.ui.loginPage)
-            
-            except requests.HTTPError as e:
-                error = json.loads(e.args[1])['error']['message']
-                print(error)
-                self.ui.username_signup.clear()
-                self.ui.pass_signup.clear()
-                self.ui.confirmPass.clear()
-
-                AppFunctions.popup(self, 1)
-                self.Popup.ui.cancel.clicked.connect(lambda: self.Popup.close())
-                self.Popup.ui.error_message.setText(str(error)+"\nTry Again?")
-                self.Popup.ui.cancel.setText('OK')
-        else:
-            error = 'PASSWORD NOT MATCH'
-            AppFunctions.popup(self, 1)
-            self.Popup.ui.cancel.clicked.connect(lambda: self.Popup.close())
-            self.Popup.ui.error_message.setText(str(error)+". Try Again?")
-            self.Popup.ui.cancel.setText('OK')
-    
-
-    def mousePressEvent(self, event):
-        # SET DRAG POS WINDOW
-        p = event.globalPosition()
-        globalPos = p.toPoint()
-        self.dragPos = globalPos
-        # self.dragPos = event.globalPos()
+    def catch_db_data(self):
+        print('Successfully imported db data.')
+        self.show()
 
 
 # Main Window Dashboard
-# from model import *
-
 widgets = None
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -145,6 +92,7 @@ class MainWindow(QMainWindow):
         self.dataset_crypto = list()
         self.dataset_source = list()
         self.retrained = False
+        self.pred_data_deployed = False
 
         # QTableWidget Stretch
         widgets.predictedTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -197,8 +145,12 @@ class MainWindow(QMainWindow):
         self.selected_histo_price = 'Closing'
         self.selected_histo_day = 30
 
+        # FUZZY LOGIC SUGGESTION
+        self.suggestion()
+
         self.get_pred_day()
-        self.access_db()
+        # self.access_db()
+        AppFunctions.dash_histo(self)
 
 
     # ///////////////////////////////////////////
@@ -210,7 +162,7 @@ class MainWindow(QMainWindow):
         widgets.btn_train.clicked.connect(self.buttonClick)
         widgets.btn_test.clicked.connect(self.buttonClick)
         widgets.btn_deploy.clicked.connect(self.buttonClick)
-        widgets.btn_logout.clicked.connect(self.logout)
+        # widgets.btn_logout.clicked.connect(self.logout)
 
         # DASHBOARD BUTTONS
         widgets.dateEdit.dateTimeChanged.connect(self.get_selected_date)
@@ -288,6 +240,66 @@ class MainWindow(QMainWindow):
 
     # ///////////////////////////////////////////
     # SLOTS
+    def suggestion(self):
+        self.timer = QTimer()
+        
+        if self.selected_crypto == 'btn_all':
+            self.timer.stop()
+            self.lblHidden = True
+            self.labels = ['BTC: BUY NOW!', 'ETH: SELL NOW!', 'DOGE: HOLD',]
+            self.lblcolors = ['#F9AA4B;', '#2082FA;', '#8C88BF;']
+            self.ctr = 0
+            self.timer.timeout.connect(self.flashLbl_all)
+            self.timer.start(500)
+
+        else:
+            self.timer.stop()
+
+            if self.ctr != 3:
+                widgets.suggestionLabel.styleSheet().replace('color: '+self.lblcolors[self.ctr], "")
+
+            if self.selected_crypto == 'btn_btc':
+                self.ctr = 0
+            
+            if self.selected_crypto == 'btn_eth':
+                self.ctr = 1
+            
+            if self.selected_crypto == 'btn_doge':
+                self.ctr = 2
+                
+            widgets.suggestionLabel.setText(self.labels[self.ctr])
+            widgets.suggestionLabel.setStyleSheet(widgets.suggestionLabel.styleSheet() + 'color: '+self.lblcolors[self.ctr])
+            widgets.suggestionLabel.show()
+
+            self.lblHidden = True
+            self.timer.timeout.connect(self.flashLbl)
+            self.timer.start(800)
+
+    def flashLbl_all(self):
+        if self.ctr == 3:
+            self.ctr = 0
+        widgets.suggestionLabel.setText(self.labels[self.ctr])
+        widgets.suggestionLabel.setStyleSheet(widgets.suggestionLabel.styleSheet() + 'color: '+self.lblcolors[self.ctr])
+        
+        if self.lblHidden == False:
+            widgets.suggestionLabel.hide()
+            self.lblHidden = True
+        else:
+            widgets.suggestionLabel.show()
+            self.lblHidden = False
+            widgets.suggestionLabel.styleSheet().replace('color: '+self.lblcolors[self.ctr], "")
+            self.ctr = self.ctr + 1
+
+    def flashLbl(self):
+        if self.lblHidden == False:
+            widgets.suggestionLabel.setStyleSheet(widgets.suggestionLabel.styleSheet() + 'color: #2AB7CA;')
+            self.lblHidden = True
+        else:
+            widgets.suggestionLabel.styleSheet().replace('color: #2AB7CA;', '')
+            widgets.suggestionLabel.setStyleSheet(widgets.suggestionLabel.styleSheet() + 'color: '+self.lblcolors[self.ctr])
+            self.lblHidden = False
+
+
     def deploy_retrain(self):
         self.retrained = True
         self.desc = '<strong>RETRAINING</strong> DATA'
@@ -351,7 +363,7 @@ class MainWindow(QMainWindow):
                     widgets.deployTable.setItem(i, j, item)
             
             
-            widgets.deployTable.resizeColumnsToContents()
+            # widgets.deployTable.resizeColumnsToContents()
             widgets.deployTable.show()
             widgets.deployTable.resizeRowsToContents()
 
@@ -423,6 +435,9 @@ class MainWindow(QMainWindow):
         btn.setStyleSheet(UIFunctions.selectCrypto(btn.styleSheet()))
         self.selected_crypto = btnName
         
+        # FUZZY SUGGESTION
+        self.suggestion()
+
         self.get_data()
 
     def get_price(self):
@@ -566,14 +581,10 @@ class MainWindow(QMainWindow):
         self.d_thread.quit()
         self.d_thread.wait()
 
-        self.Dialog.ui.loadingBar.setRange(0, 1)
-        self.Dialog.ui.loadingBar.setValue(1)
-        self.Dialog.ui.subtitle.setText("Done!")
+        self.pred_data_deployed = True
+        AppFunctions.dash_pred(self)
 
-        QTimer.singleShot(1300, self.Dialog.close)
-        QTimer.singleShot(1200, self.show)
-
-        del self.d_worker, self.d_thread
+        # del self.d_worker, self.d_thread
 
     
     # ///////////////////////////////////////////
@@ -632,8 +643,12 @@ class MainWindow(QMainWindow):
         self.db_thread.start()
 
     def get_data(self):
-        self.db_thread.quit()
-        self.db_thread.wait()
+        try:
+            self.db_thread.quit()
+            self.db_thread.wait()
+        except Exception:
+            pass
+
         AppFunctions.dash_pred(self)
         AppFunctions.dash_histo(self)
 
@@ -840,6 +855,14 @@ class MainWindow(QMainWindow):
             widgets.predictedTable.show()
 
         self.pg_worker.quit()
+
+        if self.pred_data_deployed:
+            self.Dialog.ui.loadingBar.setRange(0, 1)
+            self.Dialog.ui.loadingBar.setValue(1)
+            self.Dialog.ui.subtitle.setText("Done!")
+            QTimer.singleShot(1300, self.Dialog.close)
+            QTimer.singleShot(1200, self.show)
+            self.pred_data_deployed = False
         # del self.pg_worker
     
     
@@ -867,15 +890,6 @@ class MainWindow(QMainWindow):
         # widgets.dataAnalysisTable.resizeColumnsToContents()
         widgets.dataAnalysisTable.show()
         widgets.dataAnalysisTable.resizeRowsToContents()
-
-    
-    # ///////////////////////////////////////////
-    # LOGOUT
-    def logout(self):
-        self.window = Login()
-        self.window.show()
-        self.close()
-
     
     def mousePressEvent(self, event):
         # SET DRAG POS WINDOW
@@ -887,6 +901,6 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     # app.setWindowIcon(QIcon("icon.ico"))
-    window = Login()
-    window.show()
+    window = SplashScreen()
+    # window.show()
     sys.exit(app.exec())
