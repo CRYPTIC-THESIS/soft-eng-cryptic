@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainVeZgbu.ui'
+## Form generated from reading UI file 'mainINmgVB.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.14.1
 ##
@@ -1164,6 +1164,30 @@ class Ui_MainWindow(object):
         self.verticalLayout_13.setSpacing(13)
         self.verticalLayout_13.setObjectName(u"verticalLayout_13")
         self.verticalLayout_13.setContentsMargins(15, 13, 15, 13)
+        self.suggestionFrame = QFrame(self.historyFrame)
+        self.suggestionFrame.setObjectName(u"suggestionFrame")
+        self.suggestionFrame.setMinimumSize(QSize(0, 50))
+        self.suggestionFrame.setStyleSheet(u"background: #2AB7CA;\n"
+"/* border: 1px solid white; */\n"
+"border-radius: 5px;")
+        self.suggestionFrame.setFrameShape(QFrame.NoFrame)
+        self.suggestionFrame.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_50 = QHBoxLayout(self.suggestionFrame)
+        self.horizontalLayout_50.setSpacing(0)
+        self.horizontalLayout_50.setObjectName(u"horizontalLayout_50")
+        self.horizontalLayout_50.setContentsMargins(0, 0, 0, 0)
+        self.suggestionLabel = QLabel(self.suggestionFrame)
+        self.suggestionLabel.setObjectName(u"suggestionLabel")
+        self.suggestionLabel.setMaximumSize(QSize(16777215, 30))
+        self.suggestionLabel.setStyleSheet(u"font: 30px \"Segoe UI BOLD\";\n"
+"color: #21252B;")
+        self.suggestionLabel.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_50.addWidget(self.suggestionLabel)
+
+
+        self.verticalLayout_13.addWidget(self.suggestionFrame)
+
         self.currPriceFrame = QFrame(self.historyFrame)
         self.currPriceFrame.setObjectName(u"currPriceFrame")
         self.currPriceFrame.setFrameShape(QFrame.NoFrame)
@@ -1426,29 +1450,6 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout_13.addWidget(self.currPriceFrame)
-
-        self.suggestionFrame = QFrame(self.historyFrame)
-        self.suggestionFrame.setObjectName(u"suggestionFrame")
-        self.suggestionFrame.setStyleSheet(u"background: #2AB7CA;\n"
-"/* border: 1px solid white; */\n"
-"border-radius: 5px;")
-        self.suggestionFrame.setFrameShape(QFrame.NoFrame)
-        self.suggestionFrame.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_50 = QHBoxLayout(self.suggestionFrame)
-        self.horizontalLayout_50.setSpacing(0)
-        self.horizontalLayout_50.setObjectName(u"horizontalLayout_50")
-        self.horizontalLayout_50.setContentsMargins(0, 0, 0, 0)
-        self.suggestionLabel = QLabel(self.suggestionFrame)
-        self.suggestionLabel.setObjectName(u"suggestionLabel")
-        self.suggestionLabel.setMaximumSize(QSize(16777215, 30))
-        self.suggestionLabel.setStyleSheet(u"font: 30px \"Segoe UI BOLD\";\n"
-"color: #21252B;")
-        self.suggestionLabel.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout_50.addWidget(self.suggestionLabel)
-
-
-        self.verticalLayout_13.addWidget(self.suggestionFrame)
 
         self.daysButtonsFrame = QFrame(self.historyFrame)
         self.daysButtonsFrame.setObjectName(u"daysButtonsFrame")
@@ -3366,6 +3367,7 @@ class Ui_MainWindow(object):
         self.label.setText(QCoreApplication.translate("MainWindow", u"DAYS:", None))
         self.daysValue.setText(QCoreApplication.translate("MainWindow", u"1", None))
         self.predictedRangeLabel.setText("")
+        self.suggestionLabel.setText("")
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"CURRENT PRICE", None))
         self.label_33.setText(QCoreApplication.translate("MainWindow", u"BTC", None))
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"Bitcoin", None))
@@ -3376,7 +3378,6 @@ class Ui_MainWindow(object):
         self.label_38.setText(QCoreApplication.translate("MainWindow", u"DOGE", None))
         self.label_42.setText(QCoreApplication.translate("MainWindow", u"Dogecoin", None))
         self.dogeCurrPriceLabel.setText("")
-        self.suggestionLabel.setText("")
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"HISTORY", None))
         self.btn_histo_closing.setText(QCoreApplication.translate("MainWindow", u"CLOSING", None))
         self.btn_histo_high.setText(QCoreApplication.translate("MainWindow", u"HIGH", None))

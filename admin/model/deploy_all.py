@@ -11,10 +11,12 @@ open_file.close()
 
 for crypto in to_deploy:
 
-    data = pd.read_csv('csv/'+crypto+'_Predictions.csv')
-    pred = data['pred'].values
-    date = data['date'].values
-    db.add_predictions(crypto+'_predict',pred,date)
+    df = pd.read_csv('csv/'+crypto+'_Predictions.csv')
+    df.rename(columns={'date': 'Date', 'pred': 'Price'}, inplace=True)
+    df['Date'] = pd.to_datetime(df['Date']).dt.date
+    df2 = df.drop(df.columns[0], axis=1)
+    df2.to_csv('csv/p_'+crypto.lower()+'.csv')
+
     print(crypto+' Model Deployed!!!\n\n')
 
 file_name = 'model/obj/deployed.pkl'

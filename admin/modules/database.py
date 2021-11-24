@@ -1,6 +1,7 @@
 from main import *
 
 class AccessDatabase(QObject):
+    update_progress = Signal(int)
     import_data_complete = Signal()
     
     def __init__(self, today):
@@ -16,8 +17,6 @@ class AccessDatabase(QObject):
         fn = ['csv/curr_btc.csv', 'csv/curr_eth.csv', 'csv/curr_doge.csv',]
 
         for i, df in enumerate(lst):
-            # df2 = df.rename({'open': 'closing_', 'closing': 'open_'}, axis=1, inplace=True)
-            # df = df2.rename({'closing_': 'closing', 'open_': 'open'}, axis=1, inplace=True)
             df = df.iloc[[-1]]
             df.to_csv(fn[i])
         
@@ -25,34 +24,24 @@ class AccessDatabase(QObject):
         db_eth = get_data_table('Ethereum_Data')
         db_doge = get_data_table('Dogecoin_Data')
 
-        try:
-            p_btc = get_pred_table('BTC_predict')
-            p_eth = get_pred_table('ETH_predict')
-            p_doge = get_pred_table('DOGE_predict')
-
-            lst = [db_btc, db_eth, db_doge, p_btc, p_eth, p_doge] # 
-        except Exception:
-            lst = [db_btc, db_eth, db_doge]
+        lst = [db_btc, db_eth, db_doge]
         
         fn = ['csv/db_btc.csv', 'csv/db_eth.csv', 'csv/db_doge.csv',
               'csv/p_btc.csv', 'csv/p_eth.csv', 'csv/p_doge.csv',]
         past = self.today - timedelta(days=365)
 
         for i, df in enumerate(lst):
-            if i <= 2:
-                df['date'] = pd.to_datetime(df['date'])
-                df = df.loc[(df['date'] >= past) & (df['date'] <= self.today)]
-            else:
-                df['Date'] = df.index
-                df['Date'] = pd.to_datetime(df['Date']).dt.date
-                df.reset_index(drop=True, inplace=True)
-                df.columns = ['Price', 'Date']
-                df = df.reindex(columns=['Date', 'Price'])
+            df['date'] = pd.to_datetime(df['date'])
+            df = df.loc[(df['date'] >= past) & (df['date'] <= self.today)]
             df.to_csv(fn[i])
         # print(today)
         # print(past)
 
         self.import_data_complete.emit()
+
+        for x in range(13, 101):
+            time.sleep(0.07)
+            self.update_progress.emit(x)
 
 class ImportDataset(QThread):
     pass_dataset = Signal(pd.DataFrame)

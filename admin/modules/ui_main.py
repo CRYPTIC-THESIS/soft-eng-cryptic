@@ -665,12 +665,12 @@ class Ui_MainWindow(object):
         self.verticalLayout_116.setSpacing(0)
         self.verticalLayout_116.setObjectName(u"verticalLayout_116")
         self.verticalLayout_116.setContentsMargins(0, 0, 0, 0)
-        self.btn_logout = QPushButton(self.logoutButtonFrame)
-        self.btn_logout.setObjectName(u"btn_logout")
-        self.btn_logout.setMinimumSize(QSize(0, 59))
-        self.btn_logout.setStyleSheet(u"background-image: url(:/icons/images/icons/logout-icon.png);")
+        # self.btn_logout = QPushButton(self.logoutButtonFrame)
+        # self.btn_logout.setObjectName(u"btn_logout")
+        # self.btn_logout.setMinimumSize(QSize(0, 59))
+        # self.btn_logout.setStyleSheet(u"background-image: url(:/icons/images/icons/logout-icon.png);")
 
-        self.verticalLayout_116.addWidget(self.btn_logout)
+        # self.verticalLayout_116.addWidget(self.btn_logout)
 
 
         self.verticalLayout_3.addWidget(self.logoutButtonFrame, 0, Qt.AlignBottom)
@@ -1174,6 +1174,30 @@ class Ui_MainWindow(object):
         self.verticalLayout_13.setSpacing(13)
         self.verticalLayout_13.setObjectName(u"verticalLayout_13")
         self.verticalLayout_13.setContentsMargins(15, 13, 15, 13)
+        self.suggestionFrame = QFrame(self.historyFrame)
+        self.suggestionFrame.setObjectName(u"suggestionFrame")
+        self.suggestionFrame.setMinimumSize(QSize(0, 50))
+        self.suggestionFrame.setStyleSheet(u"background: #21252B;\n"
+"/* border: 1px solid white; */\n"
+"border-radius: 5px;")
+        self.suggestionFrame.setFrameShape(QFrame.NoFrame)
+        self.suggestionFrame.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_50 = QHBoxLayout(self.suggestionFrame)
+        self.horizontalLayout_50.setSpacing(0)
+        self.horizontalLayout_50.setObjectName(u"horizontalLayout_50")
+        self.horizontalLayout_50.setContentsMargins(0, 0, 0, 0)
+        self.suggestionLabel = QLabel(self.suggestionFrame)
+        self.suggestionLabel.setObjectName(u"suggestionLabel")
+        self.suggestionLabel.setMaximumSize(QSize(16777215, 30))
+        self.suggestionLabel.setStyleSheet(u"font: 30px \"Segoe UI\"; font-weight: bold;\n"
+"color: #21252B;")
+        self.suggestionLabel.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_50.addWidget(self.suggestionLabel)
+
+
+        self.verticalLayout_13.addWidget(self.suggestionFrame)
+
         self.currPriceFrame = QFrame(self.historyFrame)
         self.currPriceFrame.setObjectName(u"currPriceFrame")
         self.currPriceFrame.setFrameShape(QFrame.NoFrame)
@@ -1201,7 +1225,7 @@ class Ui_MainWindow(object):
 
         self.currPriceCards = QFrame(self.currPriceFrame)
         self.currPriceCards.setObjectName(u"currPriceCards")
-        self.currPriceCards.setMinimumSize(QSize(0, 124))
+        self.currPriceCards.setMinimumSize(QSize(0, 115))
         self.currPriceCards.setStyleSheet(u"")
         self.currPriceCards.setFrameShape(QFrame.NoFrame)
         self.currPriceCards.setFrameShadow(QFrame.Raised)
@@ -1525,7 +1549,7 @@ class Ui_MainWindow(object):
 
         self.histoGraphFrame = QFrame(self.daysButtonsFrame)
         self.histoGraphFrame.setObjectName(u"histoGraphFrame")
-        self.histoGraphFrame.setMinimumSize(QSize(423, 269))
+        self.histoGraphFrame.setMinimumSize(QSize(423, 215))
         self.histoGraphFrame.setFrameShape(QFrame.NoFrame)
         self.histoGraphFrame.setFrameShadow(QFrame.Raised)
         
@@ -3436,7 +3460,7 @@ class Ui_MainWindow(object):
         self.btn_train.setText(QCoreApplication.translate("MainWindow", u"Train", None))
         self.btn_test.setText(QCoreApplication.translate("MainWindow", u"Test", None))
         self.btn_deploy.setText(QCoreApplication.translate("MainWindow", u"Deploy", None))
-        self.btn_logout.setText(QCoreApplication.translate("MainWindow", u"Logout", None))
+        # self.btn_logout.setText(QCoreApplication.translate("MainWindow", u"Logout", None))
         self.titleRightInfo.setText(QCoreApplication.translate("MainWindow", u"Welcome to CRYPTIC! A system made to forecast cryptocurrency prices.", None))
         self.minimizeAppBtn.setText("")
         self.closeAppBtn.setText("")
