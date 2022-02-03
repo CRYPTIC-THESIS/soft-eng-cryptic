@@ -17,14 +17,14 @@ for crypto in trained_list:
     print("\n\nTesting "+str(crypto)+" model...")
     try:
         data  = np.genfromtxt('csv/'+str(crypto)+"_test_set.csv", delimiter=',')
+
         model = nn.cryptic()
         df_data = model.test(data,crypto)
         
         try:
             classi_analysis = da.classification_analysis(df_data, str(crypto))
             classi_analysis.to_csv('csv/'+str(crypto)+'_classification_analysis.csv')
-        except Exception as e:
-            print(e)
+        except Exception:
             pass
 
         if(crypto == 'BTC'):
