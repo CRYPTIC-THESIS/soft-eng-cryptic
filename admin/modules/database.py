@@ -1,3 +1,4 @@
+import os.path
 from main import *
 from . histo_data import *
 
@@ -21,15 +22,18 @@ class AccessDatabase(QObject):
         rt_eth = get_current('ETH')
         rt_doge = get_current('DOGE')
 
-        try:
+        if os.path.exists('csv/p_btc.csv') and os.path.exists('csv/p_btc.csv') and os.path.exists('csv/p_btc.csv'):
+            print("file exists")
+            lst = [db_btc, db_eth, db_doge, rt_btc, rt_eth, rt_doge]
+        
+        else:
             p_btc = get_pred_table('BTC_predict')
             p_eth = get_pred_table('ETH_predict')
             p_doge = get_pred_table('DOGE_predict')
 
             lst = [db_btc, db_eth, db_doge, rt_btc, rt_eth, rt_doge, p_btc, p_eth, p_doge]
-        except Exception:
-            lst = [db_btc, db_eth, db_doge, rt_btc, rt_eth, rt_doge]
         
+
         fn = ['csv/db_btc.csv', 'csv/db_eth.csv', 'csv/db_doge.csv',
               'csv/rt_btc.csv', 'csv/rt_eth.csv', 'csv/rt_doge.csv',
               'csv/p_btc.csv', 'csv/p_eth.csv', 'csv/p_doge.csv']
