@@ -31,6 +31,6 @@ A Fuzzy-Logic module is added to give investment move suggestions.
 
 2. Then run:
 
-	```
+  ```
     $ python main.py
   ```
