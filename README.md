@@ -27,7 +27,7 @@ A Fuzzy-Logic module is added to give investment move suggestions.
     ```
 
 # Run the Application #
-1. Open a terminal and make sure that the directory is in `.../admin`
+1. Open a terminal and make sure that the directory is in `...soft-eng-cryptic/admin`
 
 2. Then run:
 
