@@ -716,6 +716,9 @@ class MainWindow(QMainWindow):
                 item = QTableWidgetItem(str(my_df.iat[i, j]))
                 item.setTextAlignment(Qt.AlignCenter)
                 widgets.trainTable.setItem(i, j, item)
+
+                if len(my_df.index) == 14:
+                    widgets.trainTable.resizeColumnsToContents()
         
         
         widgets.trainTable.resizeColumnsToContents()
