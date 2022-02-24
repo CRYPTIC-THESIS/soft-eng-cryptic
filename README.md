@@ -3,9 +3,9 @@
 A Fuzzy-Logic module is added to give investment move suggestions.
 
 # Requirements #
-1. To run the application, the lates Visual Studio Code needs to be installed.
+1. To run the application, the latest Visual Studio Code needs to be installed.
 
-2. A memory space of 2gb or more.
+2. A disk space of 2GB or more.
 
 3. Stable internet connection
 
