@@ -22,15 +22,15 @@ A Fuzzy-Logic module is added to give investment move suggestions.
     
 4. After cloning install the `requirements.txt`
 
-  ```
+    ```
     $ pip install -r requirements.txt
-  ```
+    ```
 
 # Run the Application #
 1. Open a terminal and make sure that the directory is in `.../admin`
 
 2. Then run:
 
-  ```
+    ```
     $ python main.py
-  ```
+    ```
