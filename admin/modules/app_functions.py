@@ -197,7 +197,9 @@ class AppFunctions(MainWindow):
         self.ui.deployCryptoCombo.clear()
 
         self.ui.trainTable.clear()
-        self.ui.trainTable.hide()
+        self.ui.trainTable.setColumnCount(0)
+        self.ui.trainTable.setRowCount(0)
+        # self.ui.trainTable.setHidden(True)
 
         self.enable('proceed')
         self.ui.btn_proceed.setEnabled(True)
