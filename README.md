@@ -19,15 +19,20 @@ A Fuzzy-Logic module is added to give investment move suggestions.
     ```
     $ git clone git@github.com:CRYPTIC-THESIS/soft-eng-cryptic.git
     ```
-    
-4. After cloning install the `requirements.txt`
+4. Go to the directory of the repository you copied
+
+    ```
+    $ cd soft-eng-cryptic/admin
+    ```
+
+5. Then install the `requirements.txt`
 
     ```
     $ pip install -r requirements.txt
     ```
 
 # Run the Application #
-1. Open a terminal and make sure that the directory is in `...soft-eng-cryptic/admin`
+1. Open a terminal and make sure that the directory is in `.../soft-eng-cryptic/admin`
 
 2. Then run:
 
