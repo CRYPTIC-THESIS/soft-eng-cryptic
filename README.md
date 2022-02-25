@@ -10,6 +10,9 @@ A Fuzzy-Logic module is added to give investment move suggestions.
 3. Stable internet connection
 
 # Installation #
+
+For Git:
+
 1. Copy the SSH key of the repository: `git@github.com:CRYPTIC-THESIS/soft-eng-cryptic.git`
 
 2. Create a new workspace or folder in Visual Studio Code
@@ -26,6 +29,24 @@ A Fuzzy-Logic module is added to give investment move suggestions.
     ```
 
 5. Then install the `requirements.txt`
+
+    ```
+    $ pip install -r requirements.txt
+    ```
+
+For manual download:
+
+1. Download the installer at `https://drive.google.com/file/d/1lrVq7_raPjlBB91rpaK0MoGrfhS_zweF/view?usp=sharing`
+
+2. Install the .exe file in the folder or workspace of your VS Code
+
+3. Open VS Code then open a terminal setting the directory:
+
+    ```
+    $ cd soft-eng-cryptic/admin
+    ```
+
+4. Then install the `requirements.txt`
 
     ```
     $ pip install -r requirements.txt
