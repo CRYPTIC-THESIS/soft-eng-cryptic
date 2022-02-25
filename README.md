@@ -40,7 +40,8 @@ A Fuzzy-Logic module is added to give investment move suggestions.
 
 ### For Manual Installation:
 
-1. Download the installer at `https://drive.google.com/file/d/1lrVq7_raPjlBB91rpaK0MoGrfhS_zweF/view?usp=sharing`
+1. Download the installer at: 
+    `https://drive.google.com/file/d/1lrVq7_raPjlBB91rpaK0MoGrfhS_zweF/view?usp=sharing`
 
 2. Install the .exe file in the folder or workspace on your VS Code
 
