@@ -16,6 +16,7 @@ A Fuzzy-Logic module is added to give investment move suggestions.
 ### For Git:
 > Note: Make sure to setup first your ssh key. You can follow the steps in this link: https://www.youtube.com/watch?v=8X4u9sca3Io
 
+
 1. Copy the SSH key of the repository: `git@github.com:CRYPTIC-THESIS/soft-eng-cryptic.git`
 
 2. Create a new workspace or folder in Visual Studio Code
