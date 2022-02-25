@@ -11,7 +11,7 @@ A Fuzzy-Logic module is added to give investment move suggestions.
 
 # Installation #
 
-##For Git:
+## For Git:
 > Note: Make sure to setup first your ssh key. You can follow the steps in this link: https://www.youtube.com/watch?v=8X4u9sca3Io
 
 1. Copy the SSH key of the repository: `git@github.com:CRYPTIC-THESIS/soft-eng-cryptic.git`
@@ -35,7 +35,7 @@ A Fuzzy-Logic module is added to give investment move suggestions.
     $ pip install -r requirements.txt
     ```
 
-##For Manual Installation:
+## For Manual Installation:
 
 1. Download the installer at `https://drive.google.com/file/d/1lrVq7_raPjlBB91rpaK0MoGrfhS_zweF/view?usp=sharing`
 
