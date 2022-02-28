@@ -291,21 +291,17 @@ class GetPredData(QThread):
 
         if self.crypto == 'btn_all':
             lst = [self.df_btc, self.df_eth, self.df_doge]
-            # curr = [pd.read_csv('csv/curr_btc.csv'), pd.read_csv('csv/curr_eth.csv'), pd.read_csv('csv/curr_doge.csv')]
+            
         if self.crypto == 'btn_btc':
             lst = [self.df_btc]
-            # curr = [pd.read_csv('csv/curr_btc.csv')]
+            
         if self.crypto == 'btn_eth':
             lst = [self.df_eth]
-            # curr = [pd.read_csv('csv/curr_eth.csv')]
+            
         if self.crypto == 'btn_doge':
             lst = [self.df_doge]
-            # curr = [pd.read_csv('csv/curr_doge.csv')]
-
-        # numeric = ['High', 'Low', 'Closing']
+            
         new_lst = list()
-
-        # future_d = self.today + timedelta(days=self.p_days)
 
         for i, df in enumerate(lst):
             df2 = df.drop(df.columns[0], axis=1)
@@ -317,16 +313,12 @@ class GetPredData(QThread):
             df_date = []
             df_price = []
 
-            # df_ = df.loc[(df['Date'] >= future_d) & (df['Date'] <= self.today)]
             df_date = df['Date']
             df_price = df['Price']
             df['Date'] = pd.to_datetime(df['Date']).dt.date
 
             x = []
             y = []
-
-            # x.append(curr[i]['timestamp'].iat[-1])
-            # y.append(curr[i]['closing'].iat[-1])
 
             for i in range(self.p_days):
                 x.append(datetime.timestamp(df_date[i]))
@@ -351,9 +343,10 @@ class ImplementModel(QObject):
             command_line = 'python model/deploy_all.py'
             p = os.popen(command_line)
             if p:
-                # print('Done')
-                print(p.read())
+                temp = p.read()
+                print('Done')
                 self.deploy_complete.emit()
+                
         else:
             if self.process == 'train':
                 command_line = 'python model/training_model.py'

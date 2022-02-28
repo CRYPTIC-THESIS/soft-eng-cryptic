@@ -212,3 +212,29 @@ class MainSettings(MainWindow):
 	    background: rgb(33, 37, 43);
 	    color: rgb(94, 106, 130);
     }"""
+
+    PROCESS_DONE = """
+    *{
+    color: #DDDDDD;
+    background: #008A66;
+    border-color: #008A66;
+    padding-right: 3px;
+    }"""
+
+    RETURN = """
+    *{
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    font: 18px "Segoe UI"; font-weight: bold;
+    padding-right: 130px;
+    }"""
+
+    NEXT = """
+    *{
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    font: 18px "Segoe UI"; font-weight: bold;
+    padding-right: 28px;
+    }"""

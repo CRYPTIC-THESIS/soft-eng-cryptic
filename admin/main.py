@@ -128,11 +128,7 @@ class MainWindow(QMainWindow):
         widgets.btn_dash.setStyleSheet(UIFunctions.selectMenu(widgets.btn_dash.styleSheet()))
 
         widgets.btn_all.setStyleSheet(UIFunctions.selectCrypto(widgets.btn_all.styleSheet()))
-        # widgets.btc_card.setStyleSheet(UIFunctions.selectCard(widgets.btc_card.styleSheet()))
-        
-        # widgets.btn_pred_closing.setStyleSheet(UIFunctions.selectPrice(widgets.btn_pred_closing.styleSheet()))
         widgets.btn_histo_closing.setStyleSheet(UIFunctions.selectPrice(widgets.btn_histo_closing.styleSheet()))
-
         widgets.btn_0.setStyleSheet(UIFunctions.selectHistoDay(widgets.btn_0.styleSheet()))
 
         # TRAIN PAGE
@@ -169,7 +165,6 @@ class MainWindow(QMainWindow):
         widgets.btn_train.clicked.connect(self.buttonClick)
         widgets.btn_test.clicked.connect(self.buttonClick)
         widgets.btn_deploy.clicked.connect(self.buttonClick)
-        # widgets.btn_logout.clicked.connect(self.logout)
 
         # DASHBOARD BUTTONS
         widgets.dateEdit.dateTimeChanged.connect(self.get_selected_date)
@@ -257,7 +252,7 @@ class MainWindow(QMainWindow):
             self.lblcolors = ['#F9AA4B;', '#2082FA;', '#8C88BF;']
             self.ctr = 0
             self.timer.timeout.connect(self.flashLbl_all)
-            self.timer.start(500)
+            self.timer.start(830)
 
         else:
             self.timer.stop()
@@ -318,6 +313,7 @@ class MainWindow(QMainWindow):
         self.r_thread.quit()
         self.r_thread.wait()
         
+        self.enable('deploy')
         widgets.stackedWidget.setCurrentWidget(widgets.deploy)
 
         # DISPLAY PRED & TABLE
@@ -329,7 +325,7 @@ class MainWindow(QMainWindow):
         self.Dialog.ui.subtitle.setText("Done!")
 
         QTimer.singleShot(1300, self.Dialog.close)
-        QTimer.singleShot(1200, self.show)
+        QTimer.singleShot(1200, self.setActiveWindow)
 
     def get_deploy_crypto(self, value):
         self.deploy_crypto = str(value)
@@ -374,14 +370,10 @@ class MainWindow(QMainWindow):
             widgets.deployTable.show()
             widgets.deployTable.resizeRowsToContents()
 
-            # print(xy)
 
     def print(self):
-        # print(self.dct)
-
         widgets.deployCryptoCombo.currentTextChanged.connect(self.get_deploy_crypto)
         self.deploy_crypto = str(widgets.deployCryptoCombo.currentText())
-        # print(self.deploy_crypto)
         self.display_deploy_crypto()
         
 
@@ -562,7 +554,7 @@ class MainWindow(QMainWindow):
         btnName = btn.objectName()
 
         if btnName == 'btn_startTraining':
-            widgets.btn_startTraining.hide()
+            # widgets.btn_startTraining.hide()
             self.enable('test')
             widgets.trainContent.setCurrentWidget(widgets.startTrainingPage)
             widgets.btn_startTesting.clicked.connect(self.show_terminal)
@@ -571,7 +563,7 @@ class MainWindow(QMainWindow):
         
         if btnName == 'btn_startTesting':
             widgets.btn_viewDataAnalysis.show()
-            self.enable('deploy')
+            # self.enable('deploy')
             widgets.btn_deployDeploy.clicked.connect(self.deploy)
             self.process = 'test'
             self.desc = '<strong>TESTING</strong> DATA'
@@ -606,7 +598,17 @@ class MainWindow(QMainWindow):
         self.pred_data_deployed = True
         AppFunctions.dash_pred(self)
 
-        # del self.d_worker, self.d_thread
+        widgets.btn_deployDeploy.setMinimumSize(QSize(130, 35))
+        widgets.btn_deployDeploy.setText(' DEPLOYED')
+        widgets.btn_deployDeploy.setStyleSheet(
+                                widgets.btn_deployDeploy.styleSheet() +
+                                MainSettings.PROCESS_DONE)
+        widgets.btn_deployDeploy.setIcon(QIcon(':icons\images\icons\cil-check-circle.png'))
+        widgets.btn_deployDeploy.setEnabled(False)
+
+    def setActiveWindow(self):
+        self.show()
+        self.activateWindow()
 
     
     # ///////////////////////////////////////////
@@ -646,12 +648,58 @@ class MainWindow(QMainWindow):
             widgets.conMatrixGraph.setPixmap(pixmap)
 
     def show_data_analysis(self):
+        widgets.label_13.setText('TEST   Data Analysis')
         widgets.testContent.setCurrentWidget(widgets.dataAnalysisPage)
-        widgets.btn_viewDataAnalysis.hide()
+        # widgets.btn_viewDataAnalysis.hide()
+        self.new_view_btn()
 
         widgets.testCryptoCombo.currentTextChanged.connect(self.get_crypto_analyze)
         self.analyze_crypto = str(widgets.testCryptoCombo.currentText())
         self.get_analysis()
+
+
+    # ///////////////////////////////////////////
+    # Return to Training
+    def back_to_training(self):
+        widgets.trainContent.setCurrentWidget(widgets.getDataPage)
+        widgets.btn_startTraining.setIcon(QIcon(':images/images/images/next-cyan.png'))
+        widgets.btn_startTraining.setText('START TRAINING')
+        widgets.btn_startTraining.setStyleSheet(widgets.btn_startTesting.styleSheet() + MainSettings.NEXT)
+        widgets.btn_startTraining.clicked.disconnect()
+        widgets.btn_startTraining.clicked.connect(self.train_terminal)
+
+    def new_train_btn(self):
+        widgets.btn_startTraining.setIcon(QIcon(':images/images/images/back-cyan.png'))
+        widgets.btn_startTraining.setText('BACK')
+        widgets.btn_startTraining.setStyleSheet(widgets.btn_startTesting.styleSheet() + MainSettings.RETURN)
+        widgets.btn_startTraining.clicked.disconnect()
+        widgets.btn_startTraining.clicked.connect(self.back_to_training)
+
+    def train_terminal(self):
+        widgets.trainContent.setCurrentWidget(widgets.startTrainingPage)
+        self.new_train_btn()
+
+
+    # ///////////////////////////////////////////
+    # Return to Testing
+    def back_to_testing(self):
+        widgets.testContent.setCurrentWidget(widgets.testingPage)
+        widgets.btn_viewDataAnalysis.setIcon(QIcon(':images/images/images/next-cyan.png'))
+        widgets.btn_viewDataAnalysis.setText(' VIEW ANALYSIS')
+        widgets.btn_viewDataAnalysis.setStyleSheet(widgets.btn_viewDataAnalysis.styleSheet() + MainSettings.NEXT)
+        widgets.btn_viewDataAnalysis.clicked.disconnect()
+        widgets.btn_viewDataAnalysis.clicked.connect(self.view_analysis)
+
+    def new_view_btn(self):
+        widgets.btn_viewDataAnalysis.setIcon(QIcon(':images/images/images/back-cyan.png'))
+        widgets.btn_viewDataAnalysis.setText('BACK')
+        widgets.btn_viewDataAnalysis.setStyleSheet(widgets.btn_viewDataAnalysis.styleSheet() + MainSettings.RETURN)
+        widgets.btn_viewDataAnalysis.clicked.disconnect()
+        widgets.btn_viewDataAnalysis.clicked.connect(self.back_to_testing)
+
+    def view_analysis(self):
+        widgets.testContent.setCurrentWidget(widgets.dataAnalysisPage)
+        self.new_view_btn()
 
 
     # ///////////////////////////////////////////
@@ -689,10 +737,20 @@ class MainWindow(QMainWindow):
         if self.process == 'train':
             widgets.trainTerminal.clear()
             widgets.trainTerminal.insertPlainText(output)
+            widgets.label_5.setText('TRAIN   Terminal Output')
+            self.new_train_btn()
 
         if self.process == 'test':
             widgets.testTerminal.clear()
             widgets.testTerminal.insertPlainText(output)
+
+            widgets.btn_startTesting.setMinimumSize(QSize(120, 35))
+            widgets.btn_startTesting.setText(' TESTED')
+            widgets.btn_startTesting.setStyleSheet(
+                                    widgets.btn_startTesting.styleSheet() +
+                                    MainSettings.PROCESS_DONE)
+            widgets.btn_startTesting.setIcon(QIcon(':icons\images\icons\cil-check-circle.png'))
+            widgets.btn_startTesting.setEnabled(False)
 
         self.Dialog.ui.loadingBar.setRange(0, 1)
         self.Dialog.ui.loadingBar.setValue(1)
@@ -700,7 +758,7 @@ class MainWindow(QMainWindow):
 
         # QTimer.singleShot(1300, self.Dialog.close)
         # QTimer.singleShot(1200, self.show)
-        self.show()
+        self.setActiveWindow()
         self.Dialog.close()        
 
         # self.p_worker.stop()
@@ -717,9 +775,7 @@ class MainWindow(QMainWindow):
                 item.setTextAlignment(Qt.AlignCenter)
                 widgets.trainTable.setItem(i, j, item)
 
-                if len(my_df.index) == 14:
-                    widgets.trainTable.resizeColumnsToContents()
-        
+                widgets.trainTable.resizeColumnsToContents()
         
         widgets.trainTable.resizeColumnsToContents()
         widgets.trainTable.show()
@@ -733,10 +789,6 @@ class MainWindow(QMainWindow):
         btc = list()
         eth = list()
         doge = list()
-
-        # if pd.to_datetime(self.selected_date).date() == datetime.now().date():
-        #     print(self.selected_date)
-        #     print(datetime.now().date())
 
         if self.selected_crypto == 'btn_all':
             for i, data in enumerate(histo_data):
@@ -899,7 +951,6 @@ class MainWindow(QMainWindow):
 
     def catch_analysis(self, my_df):
         self.a_worker.quit()
-        # del self.a_worker
 
         widgets.dataAnalysisTable.setColumnCount(len(my_df.columns))
         widgets.dataAnalysisTable.setHorizontalHeaderLabels(my_df.columns)
@@ -912,7 +963,6 @@ class MainWindow(QMainWindow):
                 widgets.dataAnalysisTable.setItem(i, j, item)
         
         
-        # widgets.dataAnalysisTable.resizeColumnsToContents()
         widgets.dataAnalysisTable.show()
         widgets.dataAnalysisTable.resizeRowsToContents()
     

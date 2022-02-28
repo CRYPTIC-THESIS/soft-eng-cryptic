@@ -1687,16 +1687,18 @@ class Ui_MainWindow(object):
         self.btn_startTraining.setMinimumSize(QSize(204, 35))
         self.btn_startTraining.setMaximumSize(QSize(234, 35))
         self.btn_startTraining.setLayoutDirection(Qt.RightToLeft)
-        self.btn_startTraining.setStyleSheet(u"background-image: url(:/images/images/images/next-cyan.png);\n"
-"background-position: right center;\n"
-"background-repeat: no-repeat;\n"
+        self.btn_startTraining.setStyleSheet(u"* {\n"
 "border: none;\n"
-"border-right: 25px solid transparent;\n"
 "background-color: transparent;\n"
-"text-align: right;\n"
-"padding-left: 70px;\n"
-"font: 15px \"Segoe UI\"; font-weight: bold;\n"
-"")
+"text-align: left;\n"
+"padding-right: 28px;\n"
+"font: 18px \"Segoe UI\"; font-weight: bold;\n"
+"}")
+        icon2 = QIcon()
+        icon2.addFile(u":images/images/images/next-cyan.png", QSize(), QIcon.Normal, QIcon.Off)
+        # self.btn_startTraining.setIcon(QIcon(':images\images\images\back-cyan.png'))
+        self.btn_startTraining.setIcon(icon2)
+        self.btn_startTraining.setIconSize(QSize(25, 25))
 
         self.horizontalLayout_45.addWidget(self.btn_startTraining)
 
@@ -2207,7 +2209,7 @@ class Ui_MainWindow(object):
 
         self.frame_42 = QFrame(self.testHeader)
         self.frame_42.setObjectName(u"frame_42")
-        self.frame_42.setMinimumSize(QSize(254, 35))
+        self.frame_42.setMinimumSize(QSize(234, 35))
         self.frame_42.setStyleSheet(u"")
         self.frame_42.setFrameShape(QFrame.NoFrame)
         self.frame_42.setFrameShadow(QFrame.Raised)
@@ -2218,18 +2220,17 @@ class Ui_MainWindow(object):
         self.btn_viewDataAnalysis = QPushButton(self.frame_42)
         self.btn_viewDataAnalysis.setObjectName(u"btn_viewDataAnalysis")
         self.btn_viewDataAnalysis.setMinimumSize(QSize(204, 35))
-        self.btn_viewDataAnalysis.setMaximumSize(QSize(254, 35))
+        self.btn_viewDataAnalysis.setMaximumSize(QSize(234, 35))
         self.btn_viewDataAnalysis.setLayoutDirection(Qt.RightToLeft)
-        self.btn_viewDataAnalysis.setStyleSheet(u"background-image: url(:/images/images/images/next-cyan.png);\n"
-"background-position: right center;\n"
-"background-repeat: no-repeat;\n"
+        self.btn_viewDataAnalysis.setStyleSheet(u"* {\n"
 "border: none;\n"
-"border-right: 25px solid transparent;\n"
 "background-color: transparent;\n"
-"text-align: right;\n"
-"padding-left: 70px;\n"
-"font: 15px \"Segoe UI\"; font-weight: bold;\n"
-"")
+"text-align: left;\n"
+"padding-right: 28px;\n"
+"font: 18px \"Segoe UI\"; font-weight: bold;\n"
+"}")
+        self.btn_viewDataAnalysis.setIcon(icon2)
+        self.btn_viewDataAnalysis.setIconSize(QSize(25, 25))
 
         self.verticalLayout_85.addWidget(self.btn_viewDataAnalysis)
 
@@ -3516,7 +3517,7 @@ class Ui_MainWindow(object):
         self.btn_proceed.setText(QCoreApplication.translate("MainWindow", u"PROCEED", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"DATASET", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"TEST", None))
-        self.btn_viewDataAnalysis.setText(QCoreApplication.translate("MainWindow", u"VIEW DATA ANALYSIS", None))
+        self.btn_viewDataAnalysis.setText(QCoreApplication.translate("MainWindow", u" VIEW ANALYSIS", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"DATASET", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"Cryptocurrency", None))
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"Time Frame", None))
