@@ -200,7 +200,7 @@ class MainWindow(QMainWindow):
         widgets.btn_reset.clicked.connect(self.reset_all)
 
         # HELP
-        url = QUrl('https://bit.ly/3IMur7f')
+        url = QUrl('https://bit.ly/3vr9xGI')
         widgets.btn_help.clicked.connect(lambda: QDesktopServices.openUrl(url))
 
     
