@@ -199,6 +199,10 @@ class MainWindow(QMainWindow):
         self.disable('deploy')
         widgets.btn_reset.clicked.connect(self.reset_all)
 
+        # HELP
+        url = QUrl('https://bit.ly/3IMur7f')
+        widgets.btn_help.clicked.connect(lambda: QDesktopServices.openUrl(url))
+
     
     # ///////////////////////////////////////////
     # SIDE MENU
