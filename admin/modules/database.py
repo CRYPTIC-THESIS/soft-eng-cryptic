@@ -26,7 +26,6 @@ class AccessDatabase(QObject):
         df_len = [len(rt_btc), len(rt_eth), len(rt_doge)]
         df_len.sort()
         min_len = df_len[0]
-        # print("min_len: ", min_len)
 
         if os.path.exists('csv/p_btc.csv') and os.path.exists('csv/p_btc.csv') and os.path.exists('csv/p_btc.csv'):
             # print("file exists")
@@ -38,7 +37,6 @@ class AccessDatabase(QObject):
             p_doge = get_pred_table('DOGE_predict')
 
             lst = [db_btc, db_eth, db_doge, rt_btc, rt_eth, rt_doge, p_btc, p_eth, p_doge]
-        
 
         fn = ['csv/db_btc.csv', 'csv/db_eth.csv', 'csv/db_doge.csv',
               'csv/rt_btc.csv', 'csv/rt_eth.csv', 'csv/rt_doge.csv',
@@ -55,8 +53,6 @@ class AccessDatabase(QObject):
             elif i >= 3 and i <= 5:
                 df = df[:min_len]
             df.to_csv(fn[i])
-        # print(today)
-        # print(past)
 
         self.import_data_complete.emit()
 

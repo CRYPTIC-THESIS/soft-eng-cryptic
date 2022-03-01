@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="images">
+    <file>images/images/back-cyan.png</file>
     <file>images/images/splash-logo.png</file>
     <file>images/images/app-logo.png</file>
     <file>images/images/doge-logo.png</file>
