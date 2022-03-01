@@ -844,10 +844,10 @@ Button */
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">background-image: url(:/icons/images/icons/logout-icon.png);</string>
+                   <string notr="true">background-image: url(:/icons/images/icons/btn_help.png);</string>
                   </property>
                   <property name="text">
-                   <string>Logout</string>
+                   <string>Help</string>
                   </property>
                  </widget>
                 </item>
