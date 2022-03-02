@@ -43,9 +43,9 @@ A Fuzzy-Logic module is added to give investment move suggestions.
 1. Download the installer at: 
     `https://drive.google.com/file/d/1lrVq7_raPjlBB91rpaK0MoGrfhS_zweF/view?usp=sharing`
 
-2. Install the .exe file in the folder or workspace on your VS Code
+2. Create a folder or workspace in your VS Code then install the downloaded .exe file there
 
-3. Open VS Code then open a terminal setting the directory at:
+3. Open VS Code then open a terminal, setting the directory at:
 
     ```
     $ cd soft-eng-cryptic/admin
@@ -58,9 +58,17 @@ A Fuzzy-Logic module is added to give investment move suggestions.
     ```
 
 # Run the Application #
+### For Git:
 1. Open a terminal and make sure that the directory is in `.../soft-eng-cryptic/admin`
 
 2. Then run:
+
+    ```
+    $ python main.py
+    ```
+
+### For Manual Installation:
+1. Open a terminal and type:
 
     ```
     $ python main.py
