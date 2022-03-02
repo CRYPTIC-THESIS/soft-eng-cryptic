@@ -1919,7 +1919,7 @@ class Ui_MainWindow(object):
 "border-radius: 7px;")
 
         self.trainUntilDateEdit.setMinimumDate(QDate(2020, 1, 1))
-        self.trainUntilDateEdit.setMaximumDate(QDate.currentDate())
+        self.trainUntilDateEdit.setMaximumDate(QDate(2021, 10, 31))
         self.trainUntilDateEdit.setDate(QDate.currentDate())
 
         self.horizontalLayout_25.addWidget(self.trainUntilDateEdit)
