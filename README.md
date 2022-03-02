@@ -25,19 +25,19 @@ A Fuzzy-Logic module is added to give investment move suggestions.
 3. Then open a terminal in VS Code and type:
     
     ```
-    $ git clone git@github.com:CRYPTIC-THESIS/soft-eng-cryptic.git
+    git clone git@github.com:CRYPTIC-THESIS/soft-eng-cryptic.git
     ```
     
 4. Go to the directory of the repository you copied
 
     ```
-    $ cd soft-eng-cryptic
+    cd soft-eng-cryptic
     ```
 
 5. Then install the `requirements.txt`
 
     ```
-    $ pip install -r requirements.txt
+    pip install -r requirements.txt
     ```
 
 ### For Manual Installation:
@@ -50,24 +50,24 @@ A Fuzzy-Logic module is added to give investment move suggestions.
 3. Open the folder in VS Code then open a terminal, setting the directory at:
 
     ```
-    $ cd soft-eng-cryptic
+    cd soft-eng-cryptic
     ```
 
 4. Then install the `requirements.txt`
 
     ```
-    $ pip install -r requirements.txt
+    pip install -r requirements.txt
     ```
 
 # Run the Application #
 1. Open a terminal and make sure that the directory is in `.../soft-eng-cryptic/admin`
    
     ```
-    $ cd soft-eng-cryptic/admin
+    cd soft-eng-cryptic/admin
     ```
     
 2. Then run:
 
     ```
-    $ python main.py
+    python main.py
     ```
