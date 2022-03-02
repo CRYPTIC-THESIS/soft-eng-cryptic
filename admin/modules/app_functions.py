@@ -163,7 +163,7 @@ class AppFunctions(MainWindow):
 
         # DATE
         self.ui.trainFromDateEdit.setDate(QDate(2020, 1, 1))
-        self.ui.trainUntilDateEdit.setDate(QDate.currentDate())
+        self.ui.trainUntilDateEdit.setDate(QDate(2021, 10, 31))
         self.dataset_date_from = None
         self.dataset_date_until = None
 
